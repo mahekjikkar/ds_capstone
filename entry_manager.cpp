@@ -4,55 +4,32 @@
 
 using namespace std;
 
-class stadium
-{
-    protected:
+int main(){
 
-    int N;          // no. of entry gates
-    int M;          // no. of people
-    int p;          // time taken by single attendee to enter any gate
+    int N = 5;
+    int M = 1000;
+    int p = 2 ;
 
-    public:
-
-    stadium()
-    {
-        cout<<"Enter total no. of gates in your stadium: ";
-        cin>>N;
-
-        cout<<"enter total no. of attendees entering the stadium:";
-        cin>>M;
-
-        cout<<"time taken by a single attendee to enter any gate:";
-        cin>>p;
-
+    vector<queue<int> > gate;
+    for(int i=1;i<=N;i++){
+        gate.push_back(queue<int>());
+        gate.back().push(0);
     }
 
-    friend void assign_gates(stadium s1);
-};
+    int waiting_time = 0;
 
-class Node
-{
-    protected:
-
-    int no;
-    int wait_time; 
-
-    public:
-
-    Node(int i , int j){
-        no = i;
-        wait_time = j;
+    for(int i=0 ; i<M/2 ; i++){
+        int index = rand() % N; // randomly assign gates to people
+        gate[index].push(waiting_time=+p);
     }
 
-};
-
-void assign_gates(stadium s1) {
-
-    // creation of gates
-    vector<queue<Node>>gate ;      // declaring a vector of queues where each queue where each queue holds objects of node class
-    
-
-    // assigning randomly different gates to M/2 people
+     for(int i=1;i<=N;i++){
+        cout<<"total no. of people in gate "<<i<<" are "<<gate[i].size()<<endl;
+     }
+     
+    for(int i=1;i<=N;i++){
+        cout<<"waiting time for gate "<<i<<" is "<<gate[i].size()*p<<endl;
+    }
 
 
 }
