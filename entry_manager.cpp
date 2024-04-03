@@ -19,16 +19,16 @@ int main(){
 
     int waiting_time = 0;
 
-    for(int i=0 ; i<M/2 ; i++){
+    for(int i=0 ; i<M/2 ; ++i){
         int index = rand() % N; // randomly assign gates to people
         gate[index].push(waiting_time+=p);
     }
 
-     for(int i=0;i<N;i++){
+     for(int i=0;i<N;++i){
         cout<<"total no. of people in gate "<<i+1<<" are "<<gate[i].size()<<endl;
      }
      
-    for(int i=0;i<N;i++){
+    for(int i=0;i<N;++i){
         cout<<"waiting time for gate "<<i+1<<" is "<<gate[i].size()*p<<endl;
     }
 
@@ -40,7 +40,7 @@ int main(){
             minQueue = i;
         }
     }
-    cout<<"gate no. "<< minQueue+1<<" has less waiting time of "<<gate[minQueue].size()*p<<" mins."<<endl; 
+    cout<<"gate no. "<< minQueue+1<<" has minimum waiting time of "<<gate[minQueue].size()*p<<" mins."<<endl; 
 
     int ans;
     cout<<"Are you already in queue? (enter 1 for yes and 0 for no)"<<endl;
@@ -73,6 +73,16 @@ int main(){
             cout << "Stadium is full. Cannot add more attendees." << endl;
             exit(1);
         }
+    }
+    //For the case in which the attendee is already is in a queue, and has to be switched in the minimum queue
+    else{
+        int currentQueue;
+        cout<<"Enter the current queue number";
+        cin>>currentQueue;
+        currentQueue--;
+
+        gate[currentQueue].pop();
+        gate[minQueue].push(1);
     }
 
     return 0;
