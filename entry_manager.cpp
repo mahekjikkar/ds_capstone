@@ -24,4 +24,14 @@ public:
 
         cout << "time taken by singke attendee to enter any gate";
         cin >> p;
+
+        //Initializing the vector
+        entryGates.resize(N);
+        
+        // Initial random assignment of M/2 people to gates
+        for (int i = 1; i <= M/2; ++i) {
+            int gateIndex = rand() % N; // Randomly select a gate index
+            entryGates[gateIndex].push(i); // Assign the person to the selected gate
+        }
     }
+
