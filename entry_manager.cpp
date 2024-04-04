@@ -16,13 +16,13 @@ private:
 public:
     Stadium() 
     {
-        cout<< "enter the total number of gates in the stadium";
+        cout<< "Enter the total number of gates in the stadium"<<endl;
         cin >> N;
 
-        cout<< " enter the total number of attendes in the stadium";
+        cout<< "Enter the total number of attendees in the stadium"<<endl;
         cin >> M;
 
-        cout << "time taken by singke attendee to enter any gate";
+        cout << "Time taken by single attendee to enter any gate"<<endl;
         cin >> p;
 
         //Initializing the vector
@@ -32,6 +32,20 @@ public:
         for (int i = 1; i <= M/2; ++i) {
             int gateIndex = rand() % N; // Randomly select a gate index
             entryGates[gateIndex].push(i); // Assign the person to the selected gate
+
+        // Printing the waiting time of each queue before switching (optimization)
+        cout << "Displaying waiting time of gates before optimization" << endl;
+        for (int i=0; i<N; ++i) {
+            cout<<"Waiting time for gate " << i+1 << " = " << entryGates[i].size()*p << endl;            
         }
+
+        optimizeInitialRandomPeople();
+
+        //Printing the waiting time of each queue after switching (optimization)
+        cout << "Displaying waiting time of gates after optimization" << endl;
+        for (int i=0; i<N; ++i) {
+            cout<<"Waiting time for gate " << i+1 << " = " << entryGates[i].size()*p << endl;            
+        }
+
     }
 
