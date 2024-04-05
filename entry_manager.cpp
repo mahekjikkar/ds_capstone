@@ -68,5 +68,29 @@ void optimizeInitialRandomPeople(){
         }
 
 }
+
+// After balancing M/2 people now adding another M/2 people gate-wise 
+void addingNewPeople(){
+
+    int minQueue = 0;
+    for (int i = 0; i < N; ++i)
+    {
+        if (entryGates[i].size() < entryGates[minQueue].size())
+        {
+            minQueue = i;
+        }
+    }
+
+    int people = M/2+1;
+    int i = minQueue;
+    while(people!=(M+1)){
+        entryGates[i].push(1);
+        ++i;
+        ++people;
+        if(i==N){
+            i=0;       // again wrapping around to first queue if it reaches the last queue
+        }
+        }
+    }
 };
 
