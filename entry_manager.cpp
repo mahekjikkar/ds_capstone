@@ -35,20 +35,17 @@ public:
         }
 
         // Printing the waiting time of each queue before switching (optimization)
-        cout << "Displaying waiting time of gates before optimization" << endl;
-        for (int i=0; i<N; ++i) {
-            cout<<"Waiting time for gate " << i+1 << " = " << entryGates[i].size()*p << endl;            
-        }
+        cout << "Displaying Number of people at each gate before optimization" << endl<<endl;
+        displayStatus();
 
         optimizeInitialRandomPeople();
 
-        //Printing the waiting time of each queue after switching (optimization)
-        cout << "Displaying waiting time of gates after optimization" << endl;
-        for (int i=0; i<N; ++i) {
-            cout<<"Waiting time for gate " << i+1 << " = " << entryGates[i].size()*p << endl;            
-        }
+         //Printing the waiting time of each queue after switching (optimization)
+        cout << "Displaying Number of people at each gate after optimization" << endl;
+        displayStatus();
 
  }
+
 //This function will balance the first M/2 randomised people into ordered queues by popping people from larger queue and pushing them into shorter queue according to the average calculated
 void optimizeInitialRandomPeople(){
     
@@ -98,6 +95,14 @@ void addingNewPeople(){
             i=0;       // again wrapping around to first queue if it reaches the last queue
         }
         }
+    }
+
+void displayStatus(){
+
+    for(int i=0;i<N;i++){
+        cout<<"total no. of people in gate "<<i+1<<" are "<<entryGates[i].size()<<endl;
+    }
+
     }
 };
 
