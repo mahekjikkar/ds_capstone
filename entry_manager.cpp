@@ -94,6 +94,7 @@ void optimizeInitialRandomPeople() {
             ++people;
         }
     }
+}
 
 
 // After balancing M/2 people now adding another M/2 people gate-wise 
