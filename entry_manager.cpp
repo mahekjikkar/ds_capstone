@@ -18,12 +18,27 @@ public:
     {
         cout<< "Enter the total number of gates in the stadium"<<endl;
         cin >> N;
+        if(N<=0)
+{
+    cout << "Error, the total number of gates cannot be negative or zero" << endl;
+    return;
+}
 
         cout<< "Enter the total number of attendees in the stadium"<<endl;
         cin >> M;
+        if(M<0)
+        {
+            cout << "Error, the total number of attendees cannot be negative"<< endl;
+            return;
+        }
 
         cout << "Time taken by single attendee to enter any gate"<<endl;
         cin >> p;
+        if(p<0)
+        {   
+            cout << "Error, time taken to enter gate by attendee cannot be negative " << endl;
+            return;
+        }
 
         //Initializing the vector
         entryGates.resize(N);
