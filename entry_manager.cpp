@@ -49,24 +49,31 @@ public:
         }
 
  }
-//This function will balance the first M/2 randomized people into ordered queues by popping people from the larger queue and pushing them into shorter queue according to the average calculated
+//This function will balance the first M/2 randomised people into ordered queues by popping people from larger queue and pushing them into shorter queue according to the average calculated
 void optimizeInitialRandomPeople(){
-    int idealPeoplePerGate = M / (2 * N);    //Calculating average of first M/2 randomised people for balancing
+    
+    float idealPeoplePerGate = M / (2 * N);    //Calculating average of first M/2 randomised people for balancing
+
+    int roundedIdeal = idealPeoplePerGate;
+    float diff = idealPeoplePerGate - (int)idealPeoplePerGate;
+
+    //Rounding off to correctly adjust the people according to
+    if(diff>=0.5)
+    ++roundedIdeal;
         
         for (int i = 0; i < N; ++i) {
-            while (entryGates[i].size() > idealPeoplePerGate) {
-                int person = entryGates[i].back(); 
+            while (entryGates[i].size() > roundedIdeal) {
+                int person = entryGates[i].back();
                 entryGates[i].pop(); //Popping the back person from the current gate
                 for (int j = 0; j < N; ++j) {
-                    //Finding the destination gate (by iterating through each gate excluding the current gate)
-                    if (j != i && entryGates[j].size() < idealPeoplePerGate) {
-                        entryGates[j].push(person);  //Pushing the back person to a destined smaller gate
+                    //Finding the destination gate (by iterating through each gate and excluding the current gate)
+                    if (j != i && entryGates[j].size() <= roundedIdeal) {
+                        entryGates[j].push(1); //Pushing the back person to the destination (smaller) gate
                         break;
                     }
                 }
             }
         }
-
 }
 
 // After balancing M/2 people now adding another M/2 people gate-wise 
