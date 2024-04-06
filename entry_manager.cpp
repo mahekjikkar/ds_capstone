@@ -18,6 +18,7 @@ public:
     {
         cout<< "Enter the total number of gates in the stadium"<<endl;
         cin >> N;
+        cout<<endl;
         if(N<=0)
 {
     cout << "Error, the total number of gates cannot be negative or zero" << endl;
@@ -26,6 +27,7 @@ public:
 
         cout<< "Enter the total number of attendees in the stadium"<<endl;
         cin >> M;
+        cout<<endl;
         if(M<0)
         {
             cout << "Error, the total number of attendees cannot be negative"<< endl;
@@ -34,11 +36,13 @@ public:
 
         cout << "Time taken by single attendee to enter any gate"<<endl;
         cin >> p;
+        cout<<endl;
         if(p<0)
         {   
             cout << "Error, time taken to enter gate by attendee cannot be negative " << endl;
             return;
         }
+        cout<<endl;
 
         //Initializing the vector
         entryGates.resize(N);
@@ -56,7 +60,7 @@ public:
         optimizeInitialRandomPeople();
 
          //Printing the waiting time of each queue after switching (optimization)
-        cout << "Displaying Number of people at each gate after optimization" << endl;
+        cout << "Displaying Number of people at each gate after optimization" << endl <<endl;
         displayStatus();
         addingNewPeople();
  }
@@ -129,11 +133,12 @@ void addingNewPeople(){
     }
     
     // Print the time taken by each gate to become empty
-    cout << "Total time taken by each gate to become empty:" << endl;
+    cout << "Total time taken by each gate to become empty:" << endl<<endl;
     for (int i = 0; i < N; ++i) {
         cout << "Gate " << i + 1 << ": " << timeToEmpty[i] << " minutes" << endl;
     }
 
+    cout<<endl;
     //The program ends after this since all people have entered the stadium
     cout << "All people have entered the stadium." << endl;
 }
@@ -141,8 +146,9 @@ void addingNewPeople(){
 void displayStatus(){
 
     for(int i=0;i<N;i++){
-        cout<<"total no. of people in gate "<<i+1<<" are "<<entryGates[i].size()<<endl;
+        cout<<"Total no. of people in gate: "<<i+1<<entryGates[i].size()<<endl;
     }
+    cout<<endl;
 
     }
 };
