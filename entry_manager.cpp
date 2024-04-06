@@ -117,7 +117,7 @@ void addingNewPeople(){
     int i = minQueue;
     vector<int> timeToEmpty(N, 0); // creating a vector to store the time taken for each gate to become empty
     while(people!=(M+1)){
-        entryGates[i].push(1);
+        entryGates[i].push(people);
         ++i;
         ++people;
         if(i==N){
