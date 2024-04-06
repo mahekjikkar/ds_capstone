@@ -63,25 +63,35 @@ public:
 
 //This function will balance the first M/2 randomised people into ordered queues by popping people from larger queue and pushing them into shorter queue according to the average calculated
 void optimizeInitialRandomPeople() {
-        float idealPeoplePerGate = (float)M / (2 * N); // Calculating average of first M/2 randomised people for balancing
+    int idealPeoplePerGate = M / (2 * N);    // Calculating average of first M/2 randomized people for balancing
 
-        for (int i = 0; i < N; ++i) {
-            while (entryGates[i].size() > idealPeoplePerGate) {
-                int person = entryGates[i].back();
-                entryGates[i].pop();
-                int j = (i + 1) % N; // Start checking from the next gate
-                while (j != i) {
-                    if (entryGates[j].size() < idealPeoplePerGate) {
-                        entryGates[j].push(person);
-                        break;
-                    }
-                    j = (j + 1) % N;
-                }
-                if (j == i) {
-                    entryGates[i].push(person); // If no shorter queue found, push the person back to the original queue
+    // Balancing the queues
+    for (int i = 0; i < N; ++i) {
+        while (entryGates[i].size() > idealPeoplePerGate) {
+            int person = entryGates[i].back(); 
+            entryGates[i].pop(); // Popping the back person from the current gate
+            for (int j = 0; j < N; ++j) {
+                // Finding the destination gate (by iterating through each gate excluding the current gate)
+                if (j != i && entryGates[j].size() < idealPeoplePerGate) {
+                    entryGates[j].push(person);  // Pushing the back person to a destined smaller gate
                     break;
                 }
             }
+        }
+    }
+    
+    // Counting the total number of people after balancing
+    int people = 0;
+    for(int i = 0; i < N; i++) {
+        people += entryGates[i].size();
+    }
+    
+    // Filling remaining spaces to reach M/2 people only when the total number in optimised queues are not equal to M/2
+    ;
+    while (people < M / 2) {
+        for (int i = 0; i < N && people < M / 2; i++) {
+            entryGates[i].push(people + 1);                //Pushing the people that were left after optimization
+            ++people;
         }
     }
 
