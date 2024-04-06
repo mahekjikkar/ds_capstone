@@ -43,7 +43,7 @@ public:
          //Printing the waiting time of each queue after switching (optimization)
         cout << "Displaying Number of people at each gate after optimization" << endl;
         displayStatus();
-
+        addingNewPeople();
  }
 
 //This function will balance the first M/2 randomised people into ordered queues by popping people from larger queue and pushing them into shorter queue according to the average calculated
@@ -85,6 +85,7 @@ void addingNewPeople(){
 
     int people = M/2+1;
     int i = minQueue;
+    vector<int> timeToEmpty(N, 0); // creating a vector to store the time taken for each gate to become empty
     while(people!=(M+1)){
         entryGates[i].push(1);
         ++i;
@@ -92,8 +93,24 @@ void addingNewPeople(){
         if(i==N){
             i=0;       // again wrapping around to first queue if it reaches the last queue
         }
+        //dequeuing people from each gate after every p time
+        for (int j = 0; j < N; ++j) {
+            if (!entryGates[j].empty()) {
+                entryGates[j].pop(); // Dequeuing the first person from each gate
+                timeToEmpty[j] += p; // Incrementing the time taken for this gate to become empty
+            }
         }
     }
+    
+    // Print the time taken by each gate to become empty
+    cout << "Total time taken by each gate to become empty:" << endl;
+    for (int i = 0; i < N; ++i) {
+        cout << "Gate " << i + 1 << ": " << timeToEmpty[i] << " minutes" << endl;
+    }
+
+    //The program ends after this since all people have entered the stadium
+    cout << "All people have entered the stadium." << endl;
+}
 
 void displayStatus(){
 
