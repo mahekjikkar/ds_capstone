@@ -62,6 +62,10 @@ public:
          //Printing the waiting time of each queue after switching (optimization)
         cout << "Displaying Number of people at each gate after optimization" << endl <<endl;
         displayStatus();
+
+        cout<<endl;
+        cout<<"Now the initial randomisation of M/2 people and their optimisation has been completed."<<endl<<"Now the gates will be opened and simultaneously the rest M/2 people will be enqueued inside the queues"<<endl<<endl;
+        
         addingNewPeople();
  }
 
@@ -146,7 +150,7 @@ void addingNewPeople(){
 void displayStatus(){
 
     for(int i=0;i<N;i++){
-        cout<<"Total no. of people in gate: "<<i+1<<entryGates[i].size()<<endl;
+        cout<<"Total no. of people in gate "<<i+1<<":"<<entryGates[i].size()<<endl;
     }
     cout<<endl;
 
