@@ -3,7 +3,7 @@
 #include <deque>
 #include <cstdlib> // For using rand()
 #include <ctime> // For seeding the random number generator (will efficiently randomise)
-
+#include <queue>
 using namespace std;
 
 class Stadium {
@@ -44,6 +44,19 @@ public:
         }
         cout<<endl;
 
+        int vip_count;
+        cout<< "enter the number of vip arriving at stadium"<< endl;
+        cin >> vip_count;
+        if(vip_count < 0)
+        {
+            cout << "Error, number of VIPs cannot be negative" << endl;
+            return;
+        }
+            queue<int> vip_queue;
+            vip(vip_count,vip_queue);
+            M = M-vip_count;
+            cout << endl;
+
         //Initializing the vector
         entryGates.resize(N);
         
@@ -65,9 +78,10 @@ public:
 
         cout<<endl;
         cout<<"Now the initial randomisation of M/2 people and their optimisation has been completed."<<endl<<"Now the gates will be opened and simultaneously the rest M/2 people will be enqueued inside the queues"<<endl<<endl;
+        cout << "Since, gates are open the dequeuing of VIPs have also been started simultaenously"<<endl<<endl;
         
-        addingNewPeople();
- }
+        addingNewPeople(vip_queue);
+ 
 
 //This function will balance the first M/2 randomised people into ordered queues by popping people from larger queue and pushing them into shorter queue according to the average calculated
 void optimizeInitialRandomPeople() {
@@ -95,7 +109,6 @@ void optimizeInitialRandomPeople() {
     }
     
     // Filling remaining spaces to reach M/2 people only when the total number in optimised queues are not equal to M/2
-    ;
     while (people < M / 2) {
         for (int i = 0; i < N && people < M / 2; i++) {
             entryGates[i].push_back(people + 1);                //Pushing the people that were left after optimization
@@ -106,8 +119,8 @@ void optimizeInitialRandomPeople() {
 
 
 // After balancing M/2 people now adding another M/2 people gate-wise 
-void addingNewPeople(){
-
+void addingNewPeople(queue<int>& vip_queue){
+    int vip_time = 0;
     int minQueue = 0;
     for (int i = 0; i < N; ++i)
     {
@@ -129,6 +142,12 @@ void addingNewPeople(){
         }
         //dequeuing people from each gate after every p time
         for (int j = 0; j < N; ++j) {
+            if(vip_queue.size()!=0)
+            {
+                vip_queue.pop();
+                vip_time+=p;
+            }
+            
             if (!entryGates[j].empty()) {
                 entryGates[j].pop_front(); // Dequeuing the first person from each gate
                 timeToEmpty[j] += p; // Incrementing the time taken for this gate to become empty
@@ -141,10 +160,18 @@ void addingNewPeople(){
     for (int i = 0; i < N; ++i) {
         cout << "Gate " << i + 1 << ": " << timeToEmpty[i] << " minutes" << endl;
     }
-
+    cout << "total time for vip gate to become empty: "<< vip_time<<endl <<endl;
     cout<<endl;
     //The program ends after this since all people have entered the stadium
     cout << "All people have entered the stadium." << endl;
+}
+
+     void vip(int vip_count,queue<int>& vip_queue)
+{
+     for(int i=1;i<= vip_count;i++)
+    {
+        vip_queue.push(i);
+    }
 }
 
 void displayStatus(){
