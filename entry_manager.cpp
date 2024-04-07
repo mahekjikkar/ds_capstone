@@ -1,6 +1,6 @@
 #include <iostream>
 #include <vector>
-#include <queue>
+#include <deque>
 #include <cstdlib> // For using rand()
 #include <ctime> // For seeding the random number generator (will efficiently randomise)
 
@@ -11,7 +11,7 @@ private:
     int N; // Number of entry gates
     int M; // Total number of people
     int p; // Time for a single attendee to enter any gate (in minutes)
-    vector<queue<int>> entryGates;
+    vector<deque<int>> entryGates;
 
 public:
     Stadium()
@@ -50,7 +50,7 @@ public:
         // Initial random assignment of M/2 people to gates
         for (int i = 1; i <= M/2; ++i) {
             int gateIndex = rand() % N; // Randomly select a gate index
-            entryGates[gateIndex].push(i); // Assign the person to the selected gate
+            entryGates[gateIndex].push_back(i); // Assign the person to the selected gate
         }
 
         // Printing the waiting time of each queue before switching (optimization)
@@ -77,11 +77,11 @@ void optimizeInitialRandomPeople() {
     for (int i = 0; i < N; ++i) {
         while (entryGates[i].size() > idealPeoplePerGate) {
             int person = entryGates[i].back(); 
-            entryGates[i].pop(); // Popping the back person from the current gate
+            entryGates[i].pop_back(); // Popping the back person from the current gate
             for (int j = 0; j < N; ++j) {
                 // Finding the destination gate (by iterating through each gate excluding the current gate)
                 if (j != i && entryGates[j].size() < idealPeoplePerGate) {
-                    entryGates[j].push(person);  // Pushing the back person to a destined smaller gate
+                    entryGates[j].push_back(person);  // Pushing the back person to a destined smaller gate
                     break;
                 }
             }
@@ -98,7 +98,7 @@ void optimizeInitialRandomPeople() {
     ;
     while (people < M / 2) {
         for (int i = 0; i < N && people < M / 2; i++) {
-            entryGates[i].push(people + 1);                //Pushing the people that were left after optimization
+            entryGates[i].push_back(people + 1);                //Pushing the people that were left after optimization
             ++people;
         }
     }
@@ -121,7 +121,7 @@ void addingNewPeople(){
     int i = minQueue;
     vector<int> timeToEmpty(N, 0); // creating a vector to store the time taken for each gate to become empty
     while(people!=(M+1)){
-        entryGates[i].push(people);
+        entryGates[i].push_back(people);
         ++i;
         ++people;
         if(i==N){
@@ -130,7 +130,7 @@ void addingNewPeople(){
         //dequeuing people from each gate after every p time
         for (int j = 0; j < N; ++j) {
             if (!entryGates[j].empty()) {
-                entryGates[j].pop(); // Dequeuing the first person from each gate
+                entryGates[j].pop_front(); // Dequeuing the first person from each gate
                 timeToEmpty[j] += p; // Incrementing the time taken for this gate to become empty
             }
         }
@@ -150,7 +150,7 @@ void addingNewPeople(){
 void displayStatus(){
 
     for(int i=0;i<N;i++){
-        cout<<"Total no. of people in gate "<<i+1<<":"<<entryGates[i].size()<<endl;
+        cout<<"Total no. of people in gate "<<i+1<<":  "<<entryGates[i].size()<<endl;
     }
     cout<<endl;
 
