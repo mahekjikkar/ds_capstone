@@ -1,4 +1,4 @@
-#include"header.cpp"
+#include"class.cpp"
 
 int main(){
     Stadium s;
