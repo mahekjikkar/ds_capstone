@@ -45,7 +45,7 @@ public:
         cout<<endl;
 
         int vip_count;
-        cout<< "enter the number of vip arriving at stadium"<< endl;
+        cout<< "Enter the number of VIPs arriving at stadium"<< endl;
         cin >> vip_count;
         if(vip_count < 0)
         {
@@ -78,10 +78,11 @@ public:
 
         cout<<endl;
         cout<<"Now the initial randomisation of M/2 people and their optimisation has been completed."<<endl<<"Now the gates will be opened and simultaneously the rest M/2 people will be enqueued inside the queues"<<endl<<endl;
-        cout << "Since, gates are open the dequeuing of VIPs have also been started simultaenously"<<endl<<endl;
+        if(vip_count>0){
+        cout << "Since, gates are open the dequeuing of VIPs have also been started simultaenously"<<endl<<endl;}
         
         addingNewPeople(vip_queue);
- 
+    }
 
 //This function will balance the first M/2 randomised people into ordered queues by popping people from larger queue and pushing them into shorter queue according to the average calculated
 void optimizeInitialRandomPeople() {
@@ -160,7 +161,7 @@ void addingNewPeople(queue<int>& vip_queue){
     for (int i = 0; i < N; ++i) {
         cout << "Gate " << i + 1 << ": " << timeToEmpty[i] << " minutes" << endl;
     }
-    cout << "total time for vip gate to become empty: "<< vip_time<<endl <<endl;
+    cout << "VIP Gate: "<< vip_time <<" minutes"<<endl <<endl;
     cout<<endl;
     //The program ends after this since all people have entered the stadium
     cout << "All people have entered the stadium." << endl;
